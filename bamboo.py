@@ -88,8 +88,9 @@ class Bamboo:
             for element in soup.select('.comment'):
                 if element.find(attrs={'class': 'deleted-comment'}):
                     continue
-                    
+                
                 item = {
+                    'anchor': int(element.select('.comment-title .comment-anchor')[0].nextSibling.text.strip()[:-1]),
                     'author': element.find(attrs={'class': 'comment-name'}).text.strip(),
                     'content': element.find(attrs={'class': 'comment-content'}).text.strip(),
                     'published_date': self._parse_human_readable_date(element.select('.m-b-10 span')[4].text.strip()),
