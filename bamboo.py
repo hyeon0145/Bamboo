@@ -76,7 +76,10 @@ class Bamboo:
         response = self.session.get(urljoin('https://bamboofo.rest', 'posts/{}'.format(identifier)), params=parameters)
         soup = BeautifulSoup(response.text, 'lxml')
         
-        return self._extract_item(soup)
+        item = self._extract_item(soup)
+        item['identifier'] = identifier
+
+        return item
     
     def _extract_item(self, soup):
         def _extract_comments(soup):
